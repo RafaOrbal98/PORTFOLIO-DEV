@@ -1,742 +1,1948 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Portafolio - Desarrollador Web</title>
 
     <!-- Tipografía -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap"
+      rel="stylesheet" />
 
     <style>
-        /* ---------- Reset y variables ---------- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        :root{
-            --bg: #0b0d10;            /* fondo principal (negro mate) */
-            --surface: #0f1519;       /* superficie cards */
-            --muted: #99a0ab;         /* texto secundario */
-            --text: #e6eef6;          /* texto principal */
-            --offwhite: #f6f8fb;
-            --glass: rgba(255,255,255,0.04);
-            --accent: #00b4ff;        /* azul profesional minimalista */
-            --shadow: 0 10px 30px rgba(2,6,23,0.6);
-            --radius: 12px;
-            --ease: cubic-bezier(.2,.9,.2,1);
+      /* ---------- Reset y variables ---------- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #0b0d10; /* fondo principal (negro mate) */
+        --surface: #0f1519; /* superficie cards */
+        --muted: #99a0ab; /* texto secundario */
+        --text: #e6eef6; /* texto principal */
+        --offwhite: #f6f8fb;
+        --glass: rgba(255, 255, 255, 0.04);
+        --accent: #00b4ff; /* azul profesional minimalista */
+        --shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+        --radius: 12px;
+        --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: "DM Sans", Inter, -apple-system, "Segoe UI", Roboto,
+          sans-serif;
+        background: radial-gradient(
+            1200px 600px at 10% 10%,
+            rgba(0, 180, 255, 0.03),
+            transparent 6%
+          ),
+          radial-gradient(
+            1000px 500px at 90% 90%,
+            rgba(0, 180, 255, 0.02),
+            transparent 6%
+          ),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* ---------- NAV ---------- */
+      nav {
+        position: fixed;
+        inset: 0 auto auto 0;
+        width: 100%;
+        z-index: 1200;
+        backdrop-filter: blur(8px);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1.1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        color: var(--offwhite);
+        font-size: 1rem;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.9rem;
+        list-style: none;
+        align-items: center;
+      }
+      .nav-links a {
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: color 220ms var(--ease), transform 220ms var(--ease);
+        padding: 6px 0;
+      }
+      .nav-links a:hover {
+        color: var(--offwhite);
+        transform: translateY(-2px);
+      }
+      .nav-links a.active {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 8.5rem 2rem 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .hero::after {
+        /* sutil brillo diagonal */
+        content: "";
+        position: absolute;
+        left: -10%;
+        top: -10%;
+        width: 60%;
+        height: 60%;
+        background: linear-gradient(
+          120deg,
+          rgba(0, 180, 255, 0.06),
+          rgba(0, 180, 255, 0.02)
+        );
+        transform: rotate(-12deg);
+        filter: blur(40px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .hero-content {
+        max-width: 820px;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: 3.6rem;
+        font-weight: 300;
+        letter-spacing: -1px;
+        line-height: 1.06;
+        margin-bottom: 1rem;
+        color: var(--offwhite);
+      }
+      .hero h1 strong {
+        font-weight: 600;
+        color: var(--accent);
+      }
+      .hero p {
+        color: var(--muted);
+        font-size: 1.15rem;
+        margin-bottom: 0.6rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+      }
+      .hero p.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .cta {
+        display: inline-block;
+        margin-top: 1.6rem;
+        padding: 0.95rem 2rem;
+        background: linear-gradient(90deg, var(--accent), #00d0ff);
+        color: #00121a;
+        border-radius: 10px;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        box-shadow: 0 8px 30px rgba(0, 180, 255, 0.12);
+        transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
+      }
+      .cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(0, 180, 255, 0.14);
+      }
+
+      /* ---------- SECTIONS ---------- */
+      section {
+        padding: 7rem 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .section-header {
+        margin-bottom: 3.2rem;
+      }
+      .section-label {
+        color: var(--muted);
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      .section-title {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: var(--offwhite);
+        letter-spacing: -0.3px;
+      }
+
+      /* ---------- SKILLS ---------- */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.6rem;
+      }
+      .skill-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+        border-radius: var(--radius);
+        padding: 2.4rem;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        transition: transform 420ms var(--ease), box-shadow 420ms var(--ease),
+          border-color 420ms var(--ease);
+      }
+      .skill-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(2, 6, 23, 0.75);
+        border-color: rgba(0, 180, 255, 0.12);
+      }
+      .skill-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.4rem;
+      }
+      .skill-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, var(--accent), #009ed8);
+        box-shadow: 0 6px 18px rgba(0, 180, 255, 0.08);
+      }
+      .skill-icon svg {
+        width: 26px;
+        height: 26px;
+        fill: #00121a;
+      }
+      .skill-header h3 {
+        font-size: 1.1rem;
+        color: var(--offwhite);
+        font-weight: 600;
+      }
+      .skill-items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+      .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.7rem;
+        border-radius: 8px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        transition: transform 260ms var(--ease), background 260ms var(--ease);
+      }
+      .skill-item:hover {
+        transform: translateX(6px);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .skill-item-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: var(--accent);
+      }
+      .skill-item-name {
+        color: var(--offwhite);
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      /* ---------- PROJECTS ---------- */
+      .project {
+        margin-bottom: 4.2rem;
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0)
+        );
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        transition: transform 360ms var(--ease), box-shadow 360ms var(--ease);
+      }
+      .project:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 34px 80px rgba(2, 6, 23, 0.8);
+      }
+      .project-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .project:nth-child(even) .project-content {
+        direction: rtl;
+      }
+      .project:nth-child(even) .project-content > * {
+        direction: ltr;
+      }
+      .project-info {
+        padding: 2.4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .project-info h3 {
+        font-size: 1.6rem;
+        color: var(--offwhite);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .project-type {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .project-description {
+        color: var(--muted);
+        margin-bottom: 1rem;
+        line-height: 1.7;
+      }
+      .project-tech {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        margin: 0.6rem 0 1rem 0;
+      }
+      .tech-item {
+        color: var(--muted);
+        font-size: 0.85rem;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .project-links {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .project-link {
+        color: var(--accent);
+        font-weight: 600;
+        border-bottom: 1px solid rgba(0, 180, 255, 0.12);
+        transition: opacity 200ms var(--ease);
+      }
+      .project-link:hover {
+        opacity: 0.75;
+      }
+      .project-images {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        background: rgba(255, 255, 255, 0.01);
+      }
+      .project-image {
+        min-height: 220px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 420ms var(--ease);
+      }
+      .project:hover .project-image img {
+        transform: scale(1.04);
+      }
+      .image-label {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        background: rgba(0, 0, 0, 0.6);
+        color: var(--offwhite);
+        padding: 6px 8px;
+        font-size: 0.72rem;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+      }
+
+      /* ---------- CONTACT ---------- */
+      #contacto {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          var(--bg)
+        );
+        padding: 8rem 2rem 6rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+        position: relative;
+      }
+
+      .contact-wrapper {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .contact-main {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+
+      /* Info Cards Column */
+      .contact-info-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        position: sticky;
+        top: 120px;
+      }
+
+      .availability-badge {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 180, 255, 0.08),
+          rgba(0, 180, 255, 0.04)
+        );
+        border: 1px solid rgba(0, 180, 255, 0.2);
+        border-radius: var(--radius);
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+        box-shadow: 0 0 0 0 rgba(0, 180, 255, 0.4);
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 180, 255, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(0, 180, 255, 0);
+        }
+      }
+
+      .contact-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        display: flex;
+        gap: 1.2rem;
+        align-items: flex-start;
+        transition: all 360ms var(--ease);
+      }
+
+      .contact-card:hover {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.04),
+          rgba(255, 255, 255, 0.02)
+        );
+        border-color: rgba(0, 180, 255, 0.2);
+        transform: translateX(6px);
+      }
+
+      .contact-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, var(--accent), #009ed8);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .contact-icon svg {
+        width: 24px;
+        height: 24px;
+        fill: #00121a;
+      }
+
+      .contact-details h4 {
+        color: var(--offwhite);
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .contact-details a {
+        color: var(--muted);
+        font-size: 0.95rem;
+        transition: color 260ms var(--ease);
+      }
+
+      .contact-details a:hover {
+        color: var(--accent);
+      }
+
+      .contact-details p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin: 0;
+      }
+
+      .download-cv-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        padding: 1rem 1.5rem;
+        background: linear-gradient(90deg, var(--accent), #00d0ff);
+        color: #00121a;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 360ms var(--ease);
+        margin-top: 0.8rem;
+      }
+
+      .download-cv-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: #00121a;
+      }
+
+      .download-cv-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 180, 255, 0.2);
+      }
+
+      /* Form Column */
+      .contact-form-wrapper {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
+      }
+
+      .form-header {
+        margin-bottom: 2rem;
+      }
+
+      .form-header h3 {
+        color: var(--offwhite);
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-header p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-group label {
+        color: var(--offwhite);
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 0.9rem 1.2rem;
+        color: var(--offwhite);
+        font-size: 0.95rem;
+        font-family: inherit;
+        transition: all 260ms var(--ease);
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 0 0 3px rgba(0, 180, 255, 0.1);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: var(--muted);
+        opacity: 0.6;
+      }
+
+      .form-group select {
+        cursor: pointer;
+      }
+
+      .submit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        padding: 1.1rem 2rem;
+        background: linear-gradient(90deg, var(--accent), #00d0ff);
+        color: #00121a;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 360ms var(--ease);
+        letter-spacing: 0.5px;
+      }
+
+      .submit-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: #00121a;
+        transition: transform 360ms var(--ease);
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 180, 255, 0.25);
+      }
+
+      .submit-btn:hover svg {
+        transform: translateX(4px);
+      }
+
+      .submit-btn:active {
+        transform: translateY(-2px);
+      }
+
+      .form-status {
+        text-align: center;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: none;
+      }
+
+      .form-status.success {
+        background: rgba(0, 255, 100, 0.1);
+        border: 1px solid rgba(0, 255, 100, 0.3);
+        color: #00ff64;
+        display: block;
+      }
+
+      .form-status.error {
+        background: rgba(255, 0, 100, 0.1);
+        border: 1px solid rgba(255, 0, 100, 0.3);
+        color: #ff0064;
+        display: block;
+      }
+
+      /* WhatsApp Float Button */
+      .whatsapp-float {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+        z-index: 1100;
+        transition: all 360ms var(--ease);
+        animation: float-bounce 3s ease-in-out infinite;
+      }
+
+      @keyframes float-bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .whatsapp-float:hover {
+        transform: scale(1.1) translateY(-4px);
+        box-shadow: 0 16px 50px rgba(37, 211, 102, 0.4);
+      }
+
+      .whatsapp-float svg {
+        width: 32px;
+        height: 32px;
+        fill: white;
+      }
+
+      /* Responsive */
+      @media (max-width: 1100px) {
+        .contact-main {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
         }
 
-        html,body { height: 100%; }
-        body{
-            font-family: 'DM Sans', Inter, -apple-system, "Segoe UI", Roboto, sans-serif;
-            background: radial-gradient(1200px 600px at 10% 10%, rgba(0,180,255,0.03), transparent 6%),
-                        radial-gradient(1000px 500px at 90% 90%, rgba(0,180,255,0.02), transparent 6%),
-                        var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+        .contact-info-cards {
+          position: relative;
+          top: 0;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
         }
 
-        a { color: inherit; text-decoration: none; }
-        img { display:block; max-width:100%; height:auto; }
+        .availability-badge,
+        .download-cv-btn {
+          grid-column: 1 / -1;
+        }
+      }
 
-        /* ---------- NAV ---------- */
-        nav{
-            position: fixed;
-            inset: 0 auto auto 0;
-            width: 100%;
-            z-index: 1200;
-            backdrop-filter: blur(8px);
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .nav-container{
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.1rem 2rem;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-        }
-        .logo{
-            font-weight:700;
-            letter-spacing:0.6px;
-            color:var(--offwhite);
-            font-size:1rem;
-        }
-        .nav-links{
-            display:flex;
-            gap:1.9rem;
-            list-style:none;
-            align-items:center;
-        }
-        .nav-links a{
-            color:var(--muted);
-            font-weight:500;
-            font-size:0.95rem;
-            transition: color 220ms var(--ease), transform 220ms var(--ease);
-            padding:6px 0;
-        }
-        .nav-links a:hover{ color:var(--offwhite); transform: translateY(-2px); }
-        .nav-links a.active{ color: var(--accent); font-weight:600; }
-
-        /* ---------- HERO ---------- */
-        .hero{
-            min-height: 100vh;
-            display:flex;
-            align-items:center;
-            padding: 8.5rem 2rem 4rem;
-            max-width:1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .hero::after{
-            /* sutil brillo diagonal */
-            content:"";
-            position:absolute;
-            left:-10%;
-            top:-10%;
-            width:60%;
-            height:60%;
-            background: linear-gradient(120deg, rgba(0,180,255,0.06), rgba(0,180,255,0.02));
-            transform: rotate(-12deg);
-            filter: blur(40px);
-            pointer-events:none;
-            z-index:0;
-        }
-        .hero-content{ max-width:820px; z-index:1; }
-        .hero h1{
-            font-size:3.6rem;
-            font-weight:300;
-            letter-spacing:-1px;
-            line-height:1.06;
-            margin-bottom:1rem;
-            color:var(--offwhite);
-        }
-        .hero h1 strong{ font-weight:600; color:var(--accent); }
-        .hero p{
-            color:var(--muted);
-            font-size:1.15rem;
-            margin-bottom:0.6rem;
-            opacity:0;
-            transform: translateY(10px);
-            transition: opacity 520ms var(--ease), transform 520ms var(--ease);
-        }
-        .hero p.visible{ opacity:1; transform: translateY(0); }
-        .cta{
-            display:inline-block;
-            margin-top:1.6rem;
-            padding:0.95rem 2rem;
-            background: linear-gradient(90deg, var(--accent), #00d0ff);
-            color:#00121a;
-            border-radius:10px;
-            font-weight:600;
-            letter-spacing:0.6px;
-            box-shadow: 0 8px 30px rgba(0,180,255,0.12);
-            transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
-        }
-        .cta:hover{ transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,180,255,0.14); }
-
-        /* ---------- SECTIONS ---------- */
-        section{ padding:7rem 2rem; max-width:1400px; margin:0 auto; }
-        .section-header{ margin-bottom:3.2rem; }
-        .section-label{
-            color:var(--muted);
-            font-size:0.8rem;
-            letter-spacing:2px;
-            text-transform:uppercase;
-            margin-bottom:0.5rem;
-            font-weight:600;
-        }
-        .section-title{
-            font-size:2.2rem;
-            font-weight:300;
-            color:var(--offwhite);
-            letter-spacing:-0.3px;
+      @media (max-width: 768px) {
+        .contact-info-cards {
+          grid-template-columns: 1fr;
         }
 
-        /* ---------- SKILLS ---------- */
-        .skills-grid{
-            display:grid;
-            grid-template-columns: repeat(2,1fr);
-            gap:1.6rem;
+        .contact-form-wrapper {
+          padding: 1.8rem;
         }
-        .skill-card{
-            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-            border-radius: var(--radius);
-            padding:2.4rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.02);
-            transition: transform 420ms var(--ease), box-shadow 420ms var(--ease), border-color 420ms var(--ease);
-        }
-        .skill-card:hover{
-            transform: translateY(-8px);
-            box-shadow: 0 30px 60px rgba(2,6,23,0.75);
-            border-color: rgba(0,180,255,0.12);
-        }
-        .skill-header{ display:flex; align-items:center; gap:1rem; margin-bottom:1.4rem; }
-        .skill-icon{ width:52px; height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, var(--accent), #009ed8); box-shadow: 0 6px 18px rgba(0,180,255,0.08); }
-        .skill-icon svg{ width:26px; height:26px; fill: #00121a; }
-        .skill-header h3{ font-size:1.1rem; color:var(--offwhite); font-weight:600; }
-        .skill-items{ display:grid; grid-template-columns: repeat(2,1fr); gap:1rem; margin-top:0.5rem; }
-        .skill-item{
-            display:flex; align-items:center; gap:0.8rem; padding:0.7rem; border-radius:8px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-            border:1px solid rgba(255,255,255,0.02);
-            transition: transform 260ms var(--ease), background 260ms var(--ease);
-        }
-        .skill-item:hover { transform: translateX(6px); background: rgba(255,255,255,0.02); }
-        .skill-item-icon svg{ width:20px; height:20px; fill: var(--accent); }
-        .skill-item-name{ color:var(--offwhite); font-size:0.95rem; font-weight:500; }
 
-        /* ---------- PROJECTS ---------- */
-        .project{ margin-bottom:4.2rem; border-radius:12px; overflow:hidden; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); box-shadow: var(--shadow); border:1px solid rgba(255,255,255,0.02); transition: transform 360ms var(--ease), box-shadow 360ms var(--ease); }
-        .project:hover{ transform: translateY(-8px); box-shadow: 0 34px 80px rgba(2,6,23,0.8); }
-        .project-content{ display:grid; grid-template-columns: 1fr 1fr; gap:0; }
-        .project:nth-child(even) .project-content{ direction: rtl; }
-        .project:nth-child(even) .project-content > *{ direction: ltr; }
-        .project-info{ padding:2.4rem; display:flex; flex-direction:column; justify-content:center; }
-        .project-info h3{ font-size:1.6rem; color:var(--offwhite); margin-bottom:8px; font-weight:600; }
-        .project-type{ color:var(--muted); font-size:0.78rem; letter-spacing:1.3px; text-transform:uppercase; margin-bottom:1rem; }
-        .project-description{ color:var(--muted); margin-bottom:1rem; line-height:1.7; }
-        .project-tech{ display:flex; gap:0.8rem; flex-wrap:wrap; margin:0.6rem 0 1rem 0; }
-        .tech-item{ color:var(--muted); font-size:0.85rem; background: rgba(255,255,255,0.02); padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.02); }
-        .project-links{ display:flex; gap:1rem; flex-wrap:wrap; }
-        .project-link{ color:var(--accent); font-weight:600; border-bottom:1px solid rgba(0,180,255,0.12); transition: opacity 200ms var(--ease); }
-        .project-link:hover{ opacity:0.75; }
-        .project-images{ display:grid; grid-template-rows:1fr 1fr; background: rgba(255,255,255,0.01); }
-        .project-image{ min-height:220px; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-        .project-image img{ width:100%; height:100%; object-fit:cover; transition: transform 420ms var(--ease); }
-        .project:hover .project-image img{ transform: scale(1.04); }
-        .image-label{ position:absolute; bottom:12px; right:12px; background: rgba(0,0,0,0.6); color:var(--offwhite); padding:6px 8px; font-size:0.72rem; border-radius:6px; text-transform:uppercase; letter-spacing:0.9px; }
-
-        /* ---------- CONTACT ---------- */
-        #contacto{ background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); padding-bottom:4rem; border-top:1px solid rgba(255,255,255,0.02); }
-        .contact-content{ max-width:1400px; margin:0 auto; padding:3.4rem 2rem 5rem; }
-        .contact-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:2rem; margin-top:1.6rem; }
-        .contact-info h3{ color:var(--offwhite); font-size:1rem; margin-bottom:8px; font-weight:600; }
-        .contact-info a{ color:var(--muted); font-weight:500; transition: color 200ms var(--ease); }
-        .contact-info a:hover{ color:var(--accent); }
-
-        /* ---------- FOOTER ---------- */
-        footer{ padding:2.2rem; text-align:center; color:var(--muted); background:transparent; border-top:1px solid rgba(255,255,255,0.02); }
-        footer p{ color:var(--muted); font-size:0.9rem; }
-
-        /* ---------- ANIMACIONES (fade-up) ---------- */
-        .fade-up{ opacity:0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease); will-change: transform, opacity; }
-        .fade-up.in-view{ opacity:1; transform: translateY(0); }
-
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width:1100px){
-            .skills-grid{ grid-template-columns:1fr; }
-            .project-content{ grid-template-columns:1fr; }
-            .project-images{ grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+        .whatsapp-float {
+          width: 55px;
+          height: 55px;
+          bottom: 20px;
+          right: 20px;
         }
-        @media (max-width:768px){
-            .hero h1{ font-size:2.4rem; }
-            .hero{ padding-top:7.2rem; }
-            .nav-links{ gap:1rem; font-size:0.9rem; }
-            .contact-grid{ grid-template-columns:1fr; }
+
+        .whatsapp-float svg {
+          width: 28px;
+          height: 28px;
         }
-        @media (prefers-reduced-motion: reduce){
-            * { transition: none !important; animation: none !important; }
+      }
+      /* ---------- FOOTER ---------- */
+      footer {
+        padding: 2.2rem;
+        text-align: center;
+        color: var(--muted);
+        background: transparent;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      footer p {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      /* ---------- ANIMACIONES (fade-up) ---------- */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+        will-change: transform, opacity;
+      }
+      .fade-up.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- RESPONSIVE ---------- */
+      @media (max-width: 1100px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
         }
+        .project-content {
+          grid-template-columns: 1fr;
+        }
+        .project-images {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+        }
+      }
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.4rem;
+        }
+        .hero {
+          padding-top: 7.2rem;
+        }
+        .nav-links {
+          gap: 1rem;
+          font-size: 0.9rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+      .hero-wrapper {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 3rem;
+        align-items: center;
+        width: 100%;
+      }
+
+      .hero-visual {
+        position: relative;
+        z-index: 10;
+      }
+
+      .profile-photo {
+        width: 280px;
+        height: 280px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid rgba(0, 180, 255, 0.2);
+        box-shadow: 0 20px 60px rgba(0, 180, 255, 0.15);
+        position: relative;
+      }
+
+      .profile-photo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 180, 255, 0.1),
+          transparent
+        );
+        z-index: 1;
+      }
+
+      .profile-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%) contrast(1.1);
+        transition: filter 420ms var(--ease);
+      }
+
+      .profile-photo:hover img {
+        filter: grayscale(80%) contrast(1.05);
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+
+      .stat-label {
+        font-size: 0.85rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      @media (max-width: 1100px) {
+        .hero-wrapper {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .profile-photo {
+          width: 220px;
+          height: 220px;
+          margin: 0 auto;
+        }
+
+        .hero-stats {
+          justify-content: center;
+        }
+      }
+      /* ---------- ABOUT / SOBRE MÍ ---------- */
+      #sobre-mi {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.005),
+          rgba(255, 255, 255, 0.01)
+        );
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+      }
+
+      .about-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .about-text {
+        margin: 2rem 0 3rem 0;
+        line-height: 1.9;
+      }
+
+      .about-text p {
+        color: var(--muted);
+        margin-bottom: 1.3rem;
+        font-size: 1.05rem;
+      }
+
+      .about-text strong {
+        color: var(--offwhite);
+        font-weight: 600;
+      }
+
+      .experience-timeline {
+        margin-top: 3rem;
+        border-left: 2px solid rgba(0, 180, 255, 0.15);
+        padding-left: 2rem;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 2.5rem;
+      }
+
+      .timeline-marker {
+        position: absolute;
+        left: -2.55rem;
+        top: 0.3rem;
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px rgba(0, 180, 255, 0.2);
+      }
+
+      .timeline-year {
+        display: block;
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 0.4rem;
+      }
+
+      .timeline-content h4 {
+        color: var(--offwhite);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .timeline-content p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- NAV -->
     <nav>
-        <div class="nav-container">
-            <div class="logo"><img src="images/logo.svg" width="300px" alt="logo Its Eduardo" srcset=""></div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+      <div class="nav-container">
+        <div class="logo">
+          <img
+            src="images/logo.svg"
+            width="300px"
+            alt="logo Its Eduardo"
+            srcset="" />
         </div>
+        <ul class="nav-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre-mi">Sobre Mí</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
     </nav>
 
     <!-- HERO -->
+    <!-- HERO -->
     <section class="hero" id="inicio">
-        <div class="hero-content">
-            <h1>Desarrollador Web <strong>Full Stack</strong></h1>
-            <p class="hero-copy">Especializado en crear soluciones web completas y sistemas empresariales robustos.</p>
-            <p class="hero-copy">Con experiencia en desarrollo frontend y backend, transformo ideas en productos digitales funcionales y escalables.</p>
-            <a href="#proyectos" class="cta">VER PROYECTOS</a>
+      <div class="hero-wrapper">
+        <div class="hero-visual">
+          <div class="profile-photo">
+            <img src="images/yo.png" alt="Eduardo Ornelas" />
+          </div>
         </div>
+        <div class="hero-content">
+          <h1>Desarrollador Web <strong>Full Stack</strong></h1>
+          <p class="hero-copy">
+            Project Manager e Ingeniero en Software con +5 años liderando
+            proyectos tecnológicos.
+          </p>
+          <p class="hero-copy">
+            Especializado en crear soluciones completas: desde sitios web
+            modernos hasta sistemas ERP robustos para empresas en sectores
+            agroindustrial, automotriz y hotelero.
+          </p>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">5+</span>
+              <span class="stat-label">Años de Experiencia</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">15+</span>
+              <span class="stat-label">Proyectos Completados</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4</span>
+              <span class="stat-label">Sectores Industriales</span>
+            </div>
+          </div>
+          <a href="#proyectos" class="cta">VER PROYECTOS</a>
+        </div>
+      </div>
     </section>
 
     <!-- HABILIDADES -->
     <section id="habilidades">
-        <div class="section-header">
-            <div class="section-label">Expertise</div>
-            <h2 class="section-title">Habilidades Técnicas</h2>
+      <div class="section-header">
+        <div class="section-label">Expertise</div>
+        <h2 class="section-title">Habilidades Técnicas</h2>
+      </div>
+
+      <div class="skills-grid">
+        <!-- Frontend Card -->
+        <div class="skill-card fade-up">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.87-.97-7-5.29-7-9V8.3l7-3.5 7 3.5V11c0 3.71-3.13 8.03-7 9z" />
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <h3>Frontend Development</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 17.56l4.07 1.56.16-2.16-1.8-1.84 2.16-.42.42-2.16L12 9.56l-2.94 2.94.42 2.16 2.16.42-1.8 1.84.16 2.16L12 17.56M4.5 11H2v2h2.5V11m15.5 0h2v2h-2v-2M11 2h2v2.5h-2V2m0 17.5h2V22h-2v-2.5M4.93 5.05l1.41 1.41 1.06-1.06L6 4l-1.07 1.05m12.73 0L19 4l-1.4 1.4 1.06 1.06 1.41-1.41M6 20l1.41-1.41L6 17.18l-1.07 1.07L6 20m11.18 0l1.07-1.07L19 20l-1.41 1.41L17.18 20z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">HTML5</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M5 3l1.33 14.72L12 19.5l5.67-1.78L19 3H5zm11.28 13.28l-4.28 1.34-4.28-1.34L6.5 4.5h11l-1.22 11.78z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">CSS3</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3 3h18v18H3V3m4.73 15.04L16.66 9.1l-1.41-1.41-7.66 7.66-2.83-2.83-1.41 1.42 4.24 4.24z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">JavaScript</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <span class="skill-item-name">React</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.5 9.5l-6 6-6-6" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Tailwind CSS</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 6h16v2H4V6m0 5h16v2H4v-2m0 5h16v2H4v-2z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Responsive Design</span>
+            </div>
+          </div>
         </div>
 
-        <div class="skills-grid">
-            <!-- Frontend Card -->
-            <div class="skill-card fade-up">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.87-.97-7-5.29-7-9V8.3l7-3.5 7 3.5V11c0 3.71-3.13 8.03-7 9z"/><path d="M9 12l2 2 4-4"/></svg>
-                    </div>
-                    <h3>Frontend Development</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.56l4.07 1.56.16-2.16-1.8-1.84 2.16-.42.42-2.16L12 9.56l-2.94 2.94.42 2.16 2.16.42-1.8 1.84.16 2.16L12 17.56M4.5 11H2v2h2.5V11m15.5 0h2v2h-2v-2M11 2h2v2.5h-2V2m0 17.5h2V22h-2v-2.5M4.93 5.05l1.41 1.41 1.06-1.06L6 4l-1.07 1.05m12.73 0L19 4l-1.4 1.4 1.06 1.06 1.41-1.41M6 20l1.41-1.41L6 17.18l-1.07 1.07L6 20m11.18 0l1.07-1.07L19 20l-1.41 1.41L17.18 20z"/></svg>
-                        </div>
-                        <span class="skill-item-name">HTML5</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 3l1.33 14.72L12 19.5l5.67-1.78L19 3H5zm11.28 13.28l-4.28 1.34-4.28-1.34L6.5 4.5h11l-1.22 11.78z"/></svg>
-                        </div>
-                        <span class="skill-item-name">CSS3</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h18v18H3V3m4.73 15.04L16.66 9.1l-1.41-1.41-7.66 7.66-2.83-2.83-1.41 1.42 4.24 4.24z"/></svg>
-                        </div>
-                        <span class="skill-item-name">JavaScript</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
-                        </div>
-                        <span class="skill-item-name">React</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.5 9.5l-6 6-6-6"/></svg>
-                        </div>
-                        <span class="skill-item-name">Tailwind CSS</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v2H4V6m0 5h16v2H4v-2m0 5h16v2H4v-2z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Responsive Design</span>
-                    </div>
-                </div>
+        <!-- Backend Card -->
+        <div class="skill-card fade-up">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M4 1h16a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2m0 2v18h16V3H4m2 2h12v2H6V5m0 4h12v2H6V9m0 4h12v2H6v-2m0 4h8v2H6v-2z" />
+              </svg>
             </div>
-
-            <!-- Backend Card -->
-            <div class="skill-card fade-up">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 1h16a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2m0 2v18h16V3H4m2 2h12v2H6V5m0 4h12v2H6V9m0 4h12v2H6v-2m0 4h8v2H6v-2z"/></svg>
-                    </div>
-                    <h3>Backend Development</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.85c-.27 0-.55.07-.78.2l-7.44 4.3c-.48.28-.78.8-.78 1.36v8.58c0 .56.3 1.08.78 1.36l1.95 1.12c.95.46 1.27.47 1.71.47 1.4 0 2.21-.85 2.21-2.33V8.44c0-.12-.1-.22-.22-.22H8.5c-.13 0-.23.1-.23.22v8.47c0 .66-.68 1.31-1.77.76L4.45 16.5a.35.35 0 0 1-.18-.3V7.62c0-.13.07-.25.18-.3l7.4-4.28c.11-.06.24-.06.35 0l7.4 4.28c.11.05.18.17.18.3v8.58c0 .13-.07.25-.18.3l-7.4 4.28c-.11.06-.24.06-.35 0L10 19.54c-.08-.05-.16-.04-.21-.01-.53.3-.63.36-1.12.51-.12.04-.31.11.07.32l2.48 1.47c.24.14.5.21.78.21s.54-.07.78-.21l7.44-4.3c.48-.28.78-.8.78-1.36V7.62c0-.56-.3-1.08-.78-1.36l-7.44-4.3c-.23-.13-.5-.2-.78-.2z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Node.js</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10v2h2v2h2v12h-2v2h-2v2H7v-2H5v-2H3V6h2V4h2V2m0 2v2H5v2H3v8h2v2h2v2h10v-2h2v-2h2V8h-2V6h-2V4H7z"/></svg>
-                        </div>
-                        <span class="skill-item-name">PHP</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 5v14h18V5H3m2 2h14v10H5V7m2 2v2h2V9H7m4 0v2h2V9h-2m4 0v2h2V9h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2z"/></svg>
-                        </div>
-                        <span class="skill-item-name">API REST</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4m0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z"/></svg>
-                        </div>
-                        <span class="skill-item-name">MySQL</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6c0-2.21-3.58-4-8-4S4 3.79 4 6v12c0 2.21 3.58 4 8 4s8-1.79 8-4V6M6 6c0-.55 2.69-2 6-2s6 1.45 6 2-2.69 2-6 2-6-1.45-6-2z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Database Design</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 3v6h8v4h-8v8h-2v-8H3v-4h8V3h2z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Authentication</span>
-                    </div>
-                </div>
+            <h3>Backend Development</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 1.85c-.27 0-.55.07-.78.2l-7.44 4.3c-.48.28-.78.8-.78 1.36v8.58c0 .56.3 1.08.78 1.36l1.95 1.12c.95.46 1.27.47 1.71.47 1.4 0 2.21-.85 2.21-2.33V8.44c0-.12-.1-.22-.22-.22H8.5c-.13 0-.23.1-.23.22v8.47c0 .66-.68 1.31-1.77.76L4.45 16.5a.35.35 0 0 1-.18-.3V7.62c0-.13.07-.25.18-.3l7.4-4.28c.11-.06.24-.06.35 0l7.4 4.28c.11.05.18.17.18.3v8.58c0 .13-.07.25-.18.3l-7.4 4.28c-.11.06-.24.06-.35 0L10 19.54c-.08-.05-.16-.04-.21-.01-.53.3-.63.36-1.12.51-.12.04-.31.11.07.32l2.48 1.47c.24.14.5.21.78.21s.54-.07.78-.21l7.44-4.3c.48-.28.78-.8.78-1.36V7.62c0-.56-.3-1.08-.78-1.36l-7.44-4.3c-.23-.13-.5-.2-.78-.2z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Node.js</span>
             </div>
-
-            <!-- Tools & Methodologies Card -->
-            <div class="skill-card fade-up">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-                    </div>
-                    <h3>Tools & Methodologies</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.6 10.59L8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Git & GitHub</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Clean Code</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8l-6-6m4 18H6V4h7v5h5v11M8 15.91l1.41 1.41L12 14.73l2.59 2.59L16 15.91l-4-3.99-4 3.99z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Documentation</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Agile Methodologies</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Performance Optimization</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H5V5h14v14M17 8.4L13.4 12l3.6 3.6-1.4 1.4-3.6-3.6L8.4 17 7 15.6l3.6-3.6L7 8.4 8.4 7l3.6 3.6L15.6 7 17 8.4z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Testing & Debugging</span>
-                    </div>
-                </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7 2h10v2h2v2h2v12h-2v2h-2v2H7v-2H5v-2H3V6h2V4h2V2m0 2v2H5v2H3v8h2v2h2v2h10v-2h2v-2h2V8h-2V6h-2V4H7z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">PHP</span>
             </div>
-
-            <!-- Mobile & Additional Card -->
-            <div class="skill-card fade-up">
-                <div class="skill-header">
-                    <div class="skill-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 19H7V5h10m0-4H7c-1.11 0-2 .89-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2m-5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1z"/></svg>
-                    </div>
-                    <h3>Mobile & Additional</h3>
-                </div>
-                <div class="skill-items">
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
-                        </div>
-                        <span class="skill-item-name">React Native</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A8 8 0 0 1 4 12a8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-1.64 4.83M12 6a3.5 3.5 0 0 0-3.5 3.5A3.5 3.5 0 0 0 12 13a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11z"/></svg>
-                        </div>
-                        <span class="skill-item-name">UI/UX Implementation</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Deployment</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Security Best Practices</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 11h-8v6h8v-6m4 8V5c0-1.11-.89-2-2-2H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2m-2 0H3V5h18v14z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Cross-browser Compatibility</span>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-item-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4z"/></svg>
-                        </div>
-                        <span class="skill-item-name">Team Collaboration</span>
-                    </div>
-                </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3 5v14h18V5H3m2 2h14v10H5V7m2 2v2h2V9H7m4 0v2h2V9h-2m4 0v2h2V9h-2m-8 4v2h2v-2H7m4 0v2h2v-2h-2m4 0v2h2v-2h-2z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">API REST</span>
             </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4m0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">MySQL</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M20 6c0-2.21-3.58-4-8-4S4 3.79 4 6v12c0 2.21 3.58 4 8 4s8-1.79 8-4V6M6 6c0-.55 2.69-2 6-2s6 1.45 6 2-2.69 2-6 2-6-1.45-6-2z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Database Design</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 3v6h8v4h-8v8h-2v-8H3v-4h8V3h2z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Authentication</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Tools & Methodologies Card -->
+        <div class="skill-card fade-up">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
+              </svg>
+            </div>
+            <h3>Tools & Methodologies</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2.6 10.59L8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Git & GitHub</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Clean Code</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V8l-6-6m4 18H6V4h7v5h5v11M8 15.91l1.41 1.41L12 14.73l2.59 2.59L16 15.91l-4-3.99-4 3.99z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Documentation</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Agile Methodologies</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Performance Optimization</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H5V5h14v14M17 8.4L13.4 12l3.6 3.6-1.4 1.4-3.6-3.6L8.4 17 7 15.6l3.6-3.6L7 8.4 8.4 7l3.6 3.6L15.6 7 17 8.4z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Testing & Debugging</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile & Additional Card -->
+        <div class="skill-card fade-up">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17 19H7V5h10m0-4H7c-1.11 0-2 .89-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2m-5 20a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1z" />
+              </svg>
+            </div>
+            <h3>Mobile & Additional</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <span class="skill-item-name">React Native</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A8 8 0 0 1 4 12a8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-1.64 4.83M12 6a3.5 3.5 0 0 0-3.5 3.5A3.5 3.5 0 0 0 12 13a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">UI/UX Implementation</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Deployment</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Security Best Practices</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M19 11h-8v6h8v-6m4 8V5c0-1.11-.89-2-2-2H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2m-2 0H3V5h18v14z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Cross-browser Compatibility</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-item-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M16 17v2H2v-2s0-4 7-4 7 4 7 4m-3.5-9.5A3.5 3.5 0 1 0 9 11a3.5 3.5 0 0 0 3.5-3.5m3.44 5.5A5.32 5.32 0 0 1 18 17v2h4v-2s0-3.63-6.06-4z" />
+                </svg>
+              </div>
+              <span class="skill-item-name">Team Collaboration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi">
+      <div class="about-wrapper">
+        <div class="about-content">
+          <div class="section-header">
+            <div class="section-label">Acerca de mí</div>
+            <h2 class="section-title">Ingeniero & Project Manager</h2>
+          </div>
+          <div class="about-text">
+            <p>
+              Soy <strong>Eduardo Ornelas</strong>, Ingeniero en Software
+              egresado de la Universidad Politécnica de Pénjamo y Project
+              Manager con más de 5 años liderando proyectos de desarrollo
+              tecnológico para empresas en sectores agroindustrial, automotriz,
+              hotelero y comercio local.
+            </p>
+
+            <p>
+              Mi experiencia como
+              <strong>Project Manager en Orbal Technologies</strong> (2020-2025)
+              me ha permitido no solo desarrollar soluciones técnicas, sino
+              también gestionar equipos multidisciplinarios, analizar
+              presupuestos y entregar sistemas ERP que operan exitosamente
+              durante años.
+            </p>
+
+            <p>
+              Combino habilidades técnicas en desarrollo fullstack (React, PHP,
+              Python, MySQL) con capacidades de liderazgo y metodologías ágiles
+              (SCRUM). Mi enfoque está en crear soluciones digitales que generen
+              <strong>impacto real en las organizaciones</strong>.
+            </p>
+          </div>
+
+          <div class="experience-timeline">
+            <div class="timeline-item fade-up">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-year">2020 - 2025</span>
+                <h4>Project Manager</h4>
+                <p>Orbal Technologies</p>
+              </div>
+            </div>
+            <div class="timeline-item fade-up">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-year">2019 - 2020</span>
+                <h4>Consultor de Software</h4>
+                <p>Centro de Innovación y Competitividad (CINCOM)</p>
+              </div>
+            </div>
+            <div class="timeline-item fade-up">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-year">2016 - 2019</span>
+                <h4>Ingeniero en Software</h4>
+                <p>Universidad Politécnica de Pénjamo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PROYECTOS -->
     <section id="proyectos">
-        <div class="section-header">
-            <div class="section-label">Trabajo Reciente</div>
-            <h2 class="section-title">Proyectos Destacados</h2>
-        </div>
+      <div class="section-header">
+        <div class="section-label">Trabajo Reciente</div>
+        <h2 class="section-title">Proyectos Destacados</h2>
+      </div>
 
-        <div class="project fade-up">
-            <div class="project-content">
-                <div class="project-info">
-                    <div class="project-type">ERP Empresarial</div>
-                    <h3>Rafael Tiliche</h3>
-                    <p class="project-description">
-                        Sistema ERP empresarial a medida para distribuidor del sector automotriz con aproximadamente 150 empleados. Plataforma robusta con 15 módulos especializados y aplicación móvil integrada (Tiliche Rewards) que consume APIs REST para servicios a clientes.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">React Native</span>
-                        <span class="tech-item">API REST</span>
-                        <span class="tech-item">MySQL</span>
-                        <span class="tech-item">JavaScript</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://refaeltiliche.com/" target="_blank" class="project-link">Ver proyecto</a>
-                    </div>
-                </div>
-                <div class="project-images">
-                    <div class="project-image">
-                        <img src="images/erpauto.png" alt="Rafael Tiliche - Principal" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🚗</span>'">
-                        <div class="image-label">Principal</div>
-                    </div>
-                    
-                    <div class="project-image">
-                        <img style="padding-top: 5px;" src="images/tilicherewards.png" alt="Rafael Tiliche - Detalle" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📱</span>'">
-                        <div class="image-label">App Móvil</div>
-                    </div>
-                </div>
+      <div class="project fade-up">
+        <div class="project-content">
+          <div class="project-info">
+            <div class="project-type">ERP Empresarial</div>
+            <h3>Rafael Tiliche</h3>
+            <p class="project-description">
+              Sistema ERP empresarial a medida para distribuidor del sector
+              automotriz con aproximadamente 150 empleados. Plataforma robusta
+              con 15 módulos especializados y aplicación móvil integrada
+              (Tiliche Rewards) que consume APIs REST para servicios a clientes.
+            </p>
+            <div class="project-tech">
+              <span class="tech-item">PHP</span>
+              <span class="tech-item">React Native</span>
+              <span class="tech-item">API REST</span>
+              <span class="tech-item">MySQL</span>
+              <span class="tech-item">JavaScript</span>
             </div>
-        </div>
+            <div class="project-links">
+              <a
+                href="https://refaeltiliche.com/"
+                target="_blank"
+                class="project-link"
+                >Ver proyecto</a
+              >
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-image">
+              <img
+                src="images/erpauto.png"
+                alt="Rafael Tiliche - Principal"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🚗</span>'" />
+              <div class="image-label">Principal</div>
+            </div>
 
-        <div class="project fade-up">
-            <div class="project-content">
-                <div class="project-info">
-                    <div class="project-type">Sitio Web + ERP Corporativo</div>
-                    <h3>Green Hunter</h3>
-                    <p class="project-description">
-                        Desarrollo completo de sitio web corporativo y sistema ERP para distribuidor de agroquímicos. La plataforma gestiona recursos humanos, ventas, compras, facturación y otros aspectos fundamentales del negocio.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">HTML/CSS</span>
-                        <span class="tech-item">Node.js</span>
-                        <span class="tech-item">MySQL</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://greenhunter.com.mx/" target="_blank" class="project-link">Ver sitio web</a>
-                        <a href="https://greenhunter.com.mx/corporativo/" target="_blank" class="project-link">Ver ERP</a>
-                    </div>
-                </div>
-                <div class="project-images">
-                    <div class="project-image">
-                        <img src="images/gh1.png" alt="Green Hunter - Principal" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🌾</span>'">
-                        <div class="image-label">Sitio Web</div>
-                    </div>
-                    <div class="project-image">
-                        <img style="padding-top: 5px;" src="images/gh2.png" alt="Green Hunter - ERP" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>💼</span>'">
-                        <div class="image-label">ERP</div>
-                    </div>
-                </div>
+            <div class="project-image">
+              <img
+                style="padding-top: 5px"
+                src="images/tilicherewards.png"
+                alt="Rafael Tiliche - Detalle"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📱</span>'" />
+              <div class="image-label">App Móvil</div>
             </div>
+          </div>
         </div>
+      </div>
 
-        <div class="project fade-up">
-            <div class="project-content">
-                <div class="project-info">
-                    <div class="project-type">Plataforma Hotelera</div>
-                    <h3>Orbal Hotel</h3>
-                    <p class="project-description">
-                        Sistema de gestión integral para la industria hotelera con módulos especializados en reservas, clientes, personal y habitaciones. Incluye API REST para integración con sitios de booking externos y gestión de reservas en tiempo real.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">API REST</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">MySQL</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://orbal.com.mx/hotel/" target="_blank" class="project-link">Ver proyecto</a>
-                    </div>
-                </div>
-                <div class="project-images">
-                    <div class="project-image">
-                        <img src="images/hotel.png" alt="Orbal Hotel - Principal" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🏨</span>'">
-                        <div class="image-label">Dashboard</div>
-                    </div>
-                    <div class="project-image">
-                        <img style="padding-top: 5px;" src="images/hotel2.png" alt="Orbal Hotel - Detalle" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📅</span>'">
-                        <div class="image-label">Reservas</div>
-                    </div>
-                </div>
+      <div class="project fade-up">
+        <div class="project-content">
+          <div class="project-info">
+            <div class="project-type">Sitio Web + ERP Corporativo</div>
+            <h3>Green Hunter</h3>
+            <p class="project-description">
+              Desarrollo completo de sitio web corporativo y sistema ERP para
+              distribuidor de agroquímicos. La plataforma gestiona recursos
+              humanos, ventas, compras, facturación y otros aspectos
+              fundamentales del negocio.
+            </p>
+            <div class="project-tech">
+              <span class="tech-item">PHP</span>
+              <span class="tech-item">JavaScript</span>
+              <span class="tech-item">HTML/CSS</span>
+              <span class="tech-item">Node.js</span>
+              <span class="tech-item">MySQL</span>
             </div>
+            <div class="project-links">
+              <a
+                href="https://greenhunter.com.mx/"
+                target="_blank"
+                class="project-link"
+                >Ver sitio web</a
+              >
+              <a
+                href="https://greenhunter.com.mx/corporativo/"
+                target="_blank"
+                class="project-link"
+                >Ver ERP</a
+              >
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-image">
+              <img
+                src="images/gh1.png"
+                alt="Green Hunter - Principal"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🌾</span>'" />
+              <div class="image-label">Sitio Web</div>
+            </div>
+            <div class="project-image">
+              <img
+                style="padding-top: 5px"
+                src="images/gh2.png"
+                alt="Green Hunter - ERP"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>💼</span>'" />
+              <div class="image-label">ERP</div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="project fade-up">
-            <div class="project-content">
-                <div class="project-info">
-                    <div class="project-type">ERP Punto de Venta</div>
-                    <h3>Mira Negocios</h3>
-                    <p class="project-description">
-                        Sistema ERP punto de venta diseñado para micronegocios y PyMEs de diversos giros. Solución completa que incluye sitio web principal y plataforma de gestión empresarial integrada con módulos especializados.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-item">PHP</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">HTML/CSS</span>
-                        <span class="tech-item">MySQL</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://miranegocios.com/" target="_blank" class="project-link">Ver sitio web</a>
-                        <a href="https://miranegocios.com/mira-negocios/" target="_blank" class="project-link">Ver ERP</a>
-                    </div>
-                </div>
-                <div class="project-images">
-                    <div class="project-image">
-                        <img src="images/mira.png" alt="Mira Negocios - Principal" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🛒</span>'">
-                        <div class="image-label">Landing</div>
-                    </div>
-                    <div class="project-image">
-                        <img style="padding-top: 5px;" src="images/mira2.png" alt="Orbal Hotel - Detalle" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📅</span>'">
-                        <div class="image-label">POS</div>
-                    </div>
-                </div>
+      <div class="project fade-up">
+        <div class="project-content">
+          <div class="project-info">
+            <div class="project-type">Plataforma Hotelera</div>
+            <h3>Orbal Hotel</h3>
+            <p class="project-description">
+              Sistema de gestión integral para la industria hotelera con módulos
+              especializados en reservas, clientes, personal y habitaciones.
+              Incluye API REST para integración con sitios de booking externos y
+              gestión de reservas en tiempo real.
+            </p>
+            <div class="project-tech">
+              <span class="tech-item">PHP</span>
+              <span class="tech-item">API REST</span>
+              <span class="tech-item">JavaScript</span>
+              <span class="tech-item">MySQL</span>
             </div>
+            <div class="project-links">
+              <a
+                href="https://orbal.com.mx/hotel/"
+                target="_blank"
+                class="project-link"
+                >Ver proyecto</a
+              >
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-image">
+              <img
+                src="images/hotel.png"
+                alt="Orbal Hotel - Principal"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🏨</span>'" />
+              <div class="image-label">Dashboard</div>
+            </div>
+            <div class="project-image">
+              <img
+                style="padding-top: 5px"
+                src="images/hotel2.png"
+                alt="Orbal Hotel - Detalle"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📅</span>'" />
+              <div class="image-label">Reservas</div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="project fade-up">
-            <div class="project-content">
-                <div class="project-info">
-                    <div class="project-type">Sitio Web</div>
-                    <h3>Coyote Foods</h3>
-                    <p class="project-description">
-                        Sitio web de presentación diseñado para incentivar el uso de aplicación de delivery. Enfoque en experiencia de usuario y diseño responsivo con interfaz moderna y atractiva para maximizar conversiones.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-item">HTML5</span>
-                        <span class="tech-item">CSS3</span>
-                        <span class="tech-item">JavaScript</span>
-                        <span class="tech-item">Responsive Design</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://coyote-foods.com/" target="_blank" class="project-link">Ver proyecto</a>
-                    </div>
-                </div>
-                <div class="project-images">
-                    <div class="project-image">
-                        <img src="images/coyote.png" alt="Coyote Foods - Principal" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🍔</span>'">
-                        <div class="image-label">Home</div>
-                    </div>
-                    <div class="project-image">
-                        <img style="padding-top: 5px;" src="images/coyoteapp.png" alt="Coyote Foods - Detalle" onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📱</span>'">
-                        <div class="image-label">Mobile</div>
-                    </div>
-                </div>
+      <div class="project fade-up">
+        <div class="project-content">
+          <div class="project-info">
+            <div class="project-type">ERP Punto de Venta</div>
+            <h3>Mira Negocios</h3>
+            <p class="project-description">
+              Sistema ERP punto de venta diseñado para micronegocios y PyMEs de
+              diversos giros. Solución completa que incluye sitio web principal
+              y plataforma de gestión empresarial integrada con módulos
+              especializados.
+            </p>
+            <div class="project-tech">
+              <span class="tech-item">PHP</span>
+              <span class="tech-item">JavaScript</span>
+              <span class="tech-item">HTML/CSS</span>
+              <span class="tech-item">MySQL</span>
             </div>
+            <div class="project-links">
+              <a
+                href="https://miranegocios.com/"
+                target="_blank"
+                class="project-link"
+                >Ver sitio web</a
+              >
+              <a
+                href="https://miranegocios.com/mira-negocios/"
+                target="_blank"
+                class="project-link"
+                >Ver ERP</a
+              >
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-image">
+              <img
+                src="images/mira.png"
+                alt="Mira Negocios - Principal"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🛒</span>'" />
+              <div class="image-label">Landing</div>
+            </div>
+            <div class="project-image">
+              <img
+                style="padding-top: 5px"
+                src="images/mira2.png"
+                alt="Orbal Hotel - Detalle"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📅</span>'" />
+              <div class="image-label">POS</div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="project fade-up">
+        <div class="project-content">
+          <div class="project-info">
+            <div class="project-type">Sitio Web</div>
+            <h3>Coyote Foods</h3>
+            <p class="project-description">
+              Sitio web de presentación diseñado para incentivar el uso de
+              aplicación de delivery. Enfoque en experiencia de usuario y diseño
+              responsivo con interfaz moderna y atractiva para maximizar
+              conversiones.
+            </p>
+            <div class="project-tech">
+              <span class="tech-item">HTML5</span>
+              <span class="tech-item">CSS3</span>
+              <span class="tech-item">JavaScript</span>
+              <span class="tech-item">Responsive Design</span>
+            </div>
+            <div class="project-links">
+              <a
+                href="https://coyote-foods.com/"
+                target="_blank"
+                class="project-link"
+                >Ver proyecto</a
+              >
+            </div>
+          </div>
+          <div class="project-images">
+            <div class="project-image">
+              <img
+                src="images/coyote.png"
+                alt="Coyote Foods - Principal"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>🍔</span>'" />
+              <div class="image-label">Home</div>
+            </div>
+            <div class="project-image">
+              <img
+                style="padding-top: 5px"
+                src="images/coyoteapp.png"
+                alt="Coyote Foods - Detalle"
+                onerror="this.parentElement.innerHTML='<span class=\'project-image-placeholder\'>📱</span>'" />
+              <div class="image-label">Mobile</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- CONTACTO -->
     <section id="contacto">
-        <div class="contact-content">
-            <div class="section-header">
-                <div class="section-label">Conectemos</div>
-                <h2 class="section-title">Información de Contacto</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Email</h3>
-                    <a href="mailto:edrornelas98@gmail.com">edrornelas98@gmail.com</a>
-                </div>
-                <div class="contact-info">
-                    <h3>LinkedIn</h3>
-                    <a href="https://www.linkedin.com/in/eduardo-rafael-ornelas-arag%C3%B3n-15a8261a2/" target="_blank">linkedin.com/Eduardo Ornelas</a>
-                </div>
-                <!-- <div class="contact-info">
-                    <h3>GitHub</h3>
-                    <a href="#" target="_blank">github.com/tu-usuario</a>
-                </div> -->
-                <div class="contact-info">
-                    <h3>Ubicación</h3>
-                    <p style="color:var(--muted); font-size:0.95rem;">La Piedad, Michoacán, MX</p>
-                </div>
-            </div>
+      <div class="contact-wrapper">
+        <div
+          class="section-header"
+          style="text-align: center; max-width: 700px; margin: 0 auto 3rem">
+          <div class="section-label">Conectemos</div>
+          <h2 class="section-title">¿Tienes un proyecto en mente?</h2>
+          <p style="color: var(--muted); margin-top: 1rem; font-size: 1.05rem">
+            Estoy disponible para nuevos proyectos y oportunidades. Hablemos
+            sobre cómo puedo ayudarte.
+          </p>
         </div>
+
+        <div class="contact-main">
+          <!-- Columna Izquierda: Info de Contacto -->
+          <div class="contact-info-cards">
+            <div class="availability-badge fade-up">
+              <span class="status-dot"></span>
+              Disponible para proyectos
+            </div>
+
+            <div class="contact-card fade-up">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+              </div>
+              <div class="contact-details">
+                <h4>Email</h4>
+                <a href="mailto:edrornelas98@gmail.com"
+                  >edrornelas98@gmail.com</a
+                >
+              </div>
+            </div>
+
+            <div class="contact-card fade-up">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg>
+              </div>
+              <div class="contact-details">
+                <h4>Teléfono / WhatsApp</h4>
+                <a href="https://wa.me/523521239919" target="_blank"
+                  >+52 352 123 9919</a
+                >
+              </div>
+            </div>
+
+            <div class="contact-card fade-up">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                </svg>
+              </div>
+              <div class="contact-details">
+                <h4>LinkedIn</h4>
+                <a
+                  href="https://www.linkedin.com/in/eduardo-rafael-ornelas-aragón-15a8261a2/"
+                  target="_blank"
+                  >Eduardo Ornelas</a
+                >
+              </div>
+            </div>
+
+            <div class="contact-card fade-up">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z" />
+                </svg>
+              </div>
+              <div class="contact-details">
+                <h4>Ubicación</h4>
+                <p>La Piedad, Michoacán, México</p>
+              </div>
+            </div>
+
+            <a
+              href="images/CV_EDUARDO_ORNELAS.pdf"
+              download
+              class="download-cv-btn fade-up">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6m4 18H6V4h7v5h5v11m-6-1l-4-4h2.5v-3h3v3H17l-4 4z" />
+              </svg>
+              Descargar CV
+            </a>
+          </div>
+
+          <!-- Columna Derecha: Formulario -->
+          <div class="contact-form-wrapper fade-up">
+            <div class="form-header">
+              <h3>Envíame un mensaje</h3>
+              <p>Respondo en menos de 24 horas</p>
+            </div>
+
+            <form
+              id="contactForm"
+              class="contact-form"
+              action="https://formspree.io/f/TU_FORM_ID"
+              method="POST">
+              <div class="form-group">
+                <label for="name">Nombre completo</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Tu nombre"
+                  required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="tu@email.com"
+                  required />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Asunto</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="proyecto">Nuevo Proyecto</option>
+                  <option value="empleo">Oportunidad de Empleo</option>
+                  <option value="consultoria">Consultoría</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Mensaje</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="Cuéntame sobre tu proyecto..."
+                  required></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">
+                <span>Enviar Mensaje</span>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
+              </button>
+
+              <div class="form-status" id="formStatus"></div>
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- WhatsApp Flotante -->
+    <a
+      href="https://wa.me/523521239919?text=Hola%20Eduardo,%20vi%20tu%20portafolio%20y%20me%20gustaría%20contactarte"
+      class="whatsapp-float"
+      target="_blank"
+      aria-label="Contactar por WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+    </a>
 
     <!-- FOOTER -->
     <footer>
-        <p>© 2025 Eduardo Ornelas</p>
+      <p>© 2025 Eduardo Ornelas</p>
     </footer>
 
     <!-- ---------- SCRIPTS: interacciones y animaciones ---------- -->
     <script>
-        (function(){
-            // Smooth scroll offset (consider nav height)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e){
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if(!target) return;
-                    const navHeight = document.querySelector('nav').offsetHeight;
-                    const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                });
+      (function () {
+        // Smooth scroll offset (consider nav height)
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (!target) return;
+            const navHeight = document.querySelector("nav").offsetHeight;
+            const top =
+              target.getBoundingClientRect().top +
+              window.scrollY -
+              navHeight -
+              12;
+            window.scrollTo({ top, behavior: "smooth" });
+          });
+        });
+
+        // Active nav highlighting
+        const navLinks = document.querySelectorAll(".nav-links a");
+        const sections = Array.from(document.querySelectorAll("section[id]"));
+
+        function setActiveLink() {
+          const offset = window.innerHeight / 3;
+          let current = sections[0].id;
+          for (const sec of sections) {
+            const top = sec.getBoundingClientRect().top;
+            if (top - offset <= 0) current = sec.id;
+          }
+          navLinks.forEach((a) => {
+            a.classList.toggle(
+              "active",
+              a.getAttribute("href") === "#" + current
+            );
+          });
+        }
+        setActiveLink();
+        window.addEventListener("scroll", setActiveLink, { passive: true });
+
+        // Fade-up on scroll (IntersectionObserver)
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                entry.target.classList.remove("fade-up"); // keep only in-view to avoid flicker
+              }
             });
+          },
+          { threshold: 0.12 }
+        );
 
-            // Active nav highlighting
-            const navLinks = document.querySelectorAll('.nav-links a');
-            const sections = Array.from(document.querySelectorAll('section[id]'));
+        // Find our fade-up and hero-copy elements
+        document.querySelectorAll(".fade-up").forEach((el) => io.observe(el));
+        // hero paragraphs appear staggered
+        document.querySelectorAll(".hero-copy").forEach((p, i) => {
+          setTimeout(() => p.classList.add("visible"), 280 + i * 160);
+        });
 
-            function setActiveLink(){
-                const offset = window.innerHeight / 3;
-                let current = sections[0].id;
-                for (const sec of sections) {
-                    const top = sec.getBoundingClientRect().top;
-                    if(top - offset <= 0) current = sec.id;
-                }
-                navLinks.forEach(a => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-                });
-            }
-            setActiveLink();
-            window.addEventListener('scroll', setActiveLink, { passive:true });
+        // small tweak: animate hero fade-ups too (if present)
+        document.querySelectorAll(".fade-up").forEach((el, idx) => {
+          el.style.transitionDelay = idx * 80 + "ms";
+        });
 
-            // Fade-up on scroll (IntersectionObserver)
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting){
-                        entry.target.classList.add('in-view');
-                        entry.target.classList.remove('fade-up'); // keep only in-view to avoid flicker
-                    }
-                });
-            }, { threshold: 0.12 });
+        // Improve image loading: lazy loading attr (progressive enhancement)
+        document.querySelectorAll("img").forEach((img) => {
+          if (!img.hasAttribute("loading")) img.setAttribute("loading", "lazy");
+        });
 
-            // Find our fade-up and hero-copy elements
-            document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-            // hero paragraphs appear staggered
-            document.querySelectorAll('.hero-copy').forEach((p, i) => {
-                setTimeout(()=> p.classList.add('visible'), 280 + i*160);
-            });
-
-            // small tweak: animate hero fade-ups too (if present)
-            document.querySelectorAll('.fade-up').forEach((el, idx) => {
-                el.style.transitionDelay = (idx * 80) + 'ms';
-            });
-
-            // Improve image loading: lazy loading attr (progressive enhancement)
-            document.querySelectorAll('img').forEach(img => {
-                if(!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
-            });
-
-            // Respect reduced motion preference
-            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-            if(reduced.matches){ document.querySelectorAll('*').forEach(n => n.style.transition = 'none'); }
-        })();
+        // Respect reduced motion preference
+        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (reduced.matches) {
+          document
+            .querySelectorAll("*")
+            .forEach((n) => (n.style.transition = "none"));
+        }
+      })();
     </script>
-</body>
+  </body>
 </html>
